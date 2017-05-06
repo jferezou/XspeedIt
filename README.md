@@ -5,17 +5,28 @@ Problème classqiue de bin-packing :
 
 Soit :
 n : le nombre d'articles à ranger
-a_{i} : la taille de l'article i
-x_{ij} \begin{cases} 1 si l'article i est rangé dans le carton j\\ 0 sinon\end{cases} 
+Ai : la taille de l'article i
+Xij : 
 - 1 si l'article i est rangé dans le carton j
 - 0 sinon
-c_{i} \begin{cases} 1 si le carton i est utilisé\\ 0 sinon\end{cases}  
+Ci : 
 - 1 si le carton i est utilisé
 - 0 sinon
 
 *Objectif :*
-Min(\sum_{i=1}^{n} c_{i}
+Min( Somme (j= 1 .. n) {Ci})
+
+* SC : *
+Somme(i=1..n) {Ai Xij} <= 10; j=1..n (ie : on ne dépase pas la tailel de 10 d'un carton)
+Somme(j=1..n) {Xij} = 1; i=1..n (ie : tous les articles sont utilisé une et une seule fois)
+Xij € {0,1}; i =1..n , j=1..n
+Cj € {0,1}; , j=1..n
  
+
+*Algorithme utilisé :*
+Best-fit :
+1) Tri de tous les articles par ordre décroissant de taille
+2) Parcours les article dans l'ordre et on placel 'article courant dans le carton le plus rempli respectant les contraintes
 
 ## Construction du projet
 
