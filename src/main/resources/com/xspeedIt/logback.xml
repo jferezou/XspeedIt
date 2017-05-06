@@ -7,38 +7,58 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
     </encoder>
   </appender>
-	<appender name="FILE-AUDIT"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+  
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>D:\\dev\\logs\\debug.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
       		<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
 		</encoder>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- rollover daily -->
-			<fileNamePattern>D:\\dev\\logs\\archived\\error.%d{yyyy-MM-dd}.%i.log
-                        </fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>10MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	      <!-- rollover daily -->
+	      <fileNamePattern>mylog-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+	       <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+	       <maxFileSize>100MB</maxFileSize>    
+	       <maxHistory>60</maxHistory>
+	       <totalSizeCap>20GB</totalSizeCap>
+	    </rollingPolicy>
 	</appender>
+ 
+  <appender name="GENERATEUR_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="GENERATEUR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>D:\\dev\\logs\\generateur.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      		<pattern>%msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	      <!-- rollover daily -->
+	      <fileNamePattern>generateur-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+	       <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+	       <maxFileSize>100MB</maxFileSize>    
+	       <maxHistory>60</maxHistory>
+	       <totalSizeCap>20GB</totalSizeCap>
+	    </rollingPolicy>
+  </appender>
+
   <logger name="com.xspeedIt" level="info" additivity="false">
    <appender-ref ref="STDOUT" />
-   <appender-ref ref="FILE-AUDIT" />
+   <appender-ref ref="FILE" />
   </logger>
   
-  <logger name="org.springframework.transaction" level="error" additivity="false">
-   <appender-ref ref="STDOUT" />
-   <appender-ref ref="FILE-AUDIT" />
+  <logger name="com.xspeedIt.generateur" level="info" additivity="false">
+   <appender-ref ref="GENERATEUR_STDOUT" />
+   <appender-ref ref="GENERATEUR" />
   </logger>
- 
-
+  
   <!-- Strictly speaking, the level attribute is not necessary since -->
   <!-- the level of the root level is set to DEBUG by default.       -->
   <root level="INFO">          
    <appender-ref ref="STDOUT" />
-   <appender-ref ref="FILE-AUDIT" />
+   <appender-ref ref="FILE" />
   </root>  
   
 </configuration>

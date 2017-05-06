@@ -36,6 +36,7 @@ public class BestFitServiceImpl implements BestFitService{
 			totalArticles += carton.getArticles().size();
 		}
 		
+		// on a bien le même nombre d'articles en entrée et dans les cartons
 		if(totalArticles != articles.size()) {
 			throw new AlgoException("Un article n'est pas rangé dans un carton ou est rangé plusieurs fois");
 		}
@@ -55,7 +56,7 @@ public class BestFitServiceImpl implements BestFitService{
 		for(Article article : articles) {
 			LOGGER.debug("Traitement de l'article {}", article);
 			Carton cartonSelectionne = null;
-			// permet de mettre cet article dans le carton qui sera la mieux remplie
+			// permet de mettre cet article dans le carton qui sera la mieux rempli
 			int cartonIndex = 0;
 			boolean cartonRempliMax = false;
 			int meilleurPoidRemplissage = 0;

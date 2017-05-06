@@ -60,6 +60,26 @@ public class BestFitServiceTest {
 		articles.add(new Article(5));
 		cartons = this.bestFitService.bestFit(articles);
 		assertThat(cartons.size()).isEqualTo(3);
+
+		// 163841689525773 => 8 cartons
+		articles.clear();
+		articles.add(new Article(1));
+		articles.add(new Article(6));
+		articles.add(new Article(3));
+		articles.add(new Article(8));
+		articles.add(new Article(4));
+		articles.add(new Article(1));
+		articles.add(new Article(6));
+		articles.add(new Article(8));
+		articles.add(new Article(9));
+		articles.add(new Article(5));
+		articles.add(new Article(2));
+		articles.add(new Article(5));
+		articles.add(new Article(7));
+		articles.add(new Article(7));
+		articles.add(new Article(3));
+		cartons = this.bestFitService.bestFit(articles);
+		assertThat(cartons.size()).isEqualTo(8);
 	}
 	
 	@Test(expected=AlgoException.class)

@@ -48,7 +48,7 @@ public class FillServiceImpl implements FillService{
 			// 3 algo du best-fit : on parcourt ces articles un à un et on met l'article dans la boîte la mieux remplie
 			List<Carton> cartons = this.bestFitService.bestFit(articles);			
 
-			strB.append("Total cartons : ");
+			strB.append("\nTotal cartons : ");
 			strB.append(cartons.size());
 			strB.append(" pour les articles : ");
 			strB.append(line);
@@ -71,6 +71,12 @@ public class FillServiceImpl implements FillService{
 		LOGGER.debug("Fin remplissage : {}", lineResult);
 		LOGGER.info("Fin remplissage");
 		return lineResult;
+	}
+	public void setArticlesService(ArticlesService articlesService) {
+		this.articlesService = articlesService;
+	}
+	public void setBestFitService(BestFitService bestFitService) {
+		this.bestFitService = bestFitService;
 	}
 
 	

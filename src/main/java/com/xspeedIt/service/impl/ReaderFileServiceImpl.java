@@ -91,7 +91,6 @@ public class ReaderFileServiceImpl implements ReaderFileService {
 				bw.append(cpt);
 				bw.newLine();
 			}
-
 		}
 	}
 
