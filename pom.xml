@@ -173,7 +173,7 @@
                   <configuration>
                        <archive>
                            <manifest>
-                                 <mainClass>com.algo.XspeedIt</mainClass>
+                                 <mainClass>com.xspeedIt.XspeedIt</mainClass>
                            </manifest>
                        </archive>
                        <descriptorRefs>
