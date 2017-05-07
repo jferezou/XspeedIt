@@ -1,9 +1,10 @@
 package com.xspeedit.test.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import com.xspeedit.pojo.Article;
 import com.xspeedit.pojo.Carton;
 import com.xspeedit.service.BestFitService;
 import com.xspeedit.test.TestConfig;
-
-import static org.assertj.core.api.Assertions.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=TestConfig.class)
 public class BestFitServiceTest {
@@ -81,14 +80,4 @@ public class BestFitServiceTest {
 		cartons = this.bestFitService.bestFit(articles);
 		assertThat(cartons.size()).isEqualTo(8);
 	}
-	
-	@Test(expected=AlgoException.class)
-	@Ignore
-	public void testBestFitException() throws AlgoException {
-		// si j'ai un chiffre plus grand que 9
-		List<Article> articles = new ArrayList<>();
-		articles.add(new Article(10));
-		this.bestFitService.bestFit(articles);
-	}
-
 }

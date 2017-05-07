@@ -1,5 +1,7 @@
 package com.xspeedit.test.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,6 @@ import com.xspeedit.service.ArticlesService;
 import com.xspeedit.service.BestFitService;
 import com.xspeedit.service.impl.FillServiceImpl;
 import com.xspeedit.test.TestConfig;
-
-import static org.assertj.core.api.Assertions.*;
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes=TestConfig.class)
 public class FillServiceTest {
@@ -78,10 +78,26 @@ public class FillServiceTest {
 	
 	
 	@Test
-	public void Test() throws TailleArticleException{
+	public void Test() {
 		String line = "111";
 		String lineResult = this.fillService.fill(line);
 		assertThat(lineResult).containsSequence(line,"16/8/163/9/16/11111");
 	}
 
+	@Test
+	public void TestAlgoException() throws AlgoException{
+		Mockito.when(this.bestFitService.bestFit(Mockito.anyList())).thenThrow(new AlgoException("Erreur algo"));
+		String line = "111";
+		String lineResult = this.fillService.fill(line);
+		assertThat(lineResult).containsSequence("ATTENTION","Erreur algo");
+	}
+
+	@Test
+	public void TestArticleException() throws TailleArticleException{
+		Mockito.when(this.articlesService.getArticles(Mockito.anyString())).thenThrow(new TailleArticleException("Erreur taille"));
+		String line = "111";
+		String lineResult = this.fillService.fill(line);
+		assertThat(lineResult).containsSequence("ATTENTION","Erreur taille");
+	}
+	
 }
