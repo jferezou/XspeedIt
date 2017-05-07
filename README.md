@@ -72,11 +72,13 @@ L'algorithme est chrnonophage sur la partie tri. Avec 50000 articles les temps d
 L'utilisation du parallel (ReaderFileServiceImpl.java, méthode multiThreaded) permet d'accélérer les traitements quand il y a plusieurs lignes.
 
 50 jeux de données de 50000 éléments
-Mono-Thread : 161644 ms
-Multi-Thread : 105209 ms
+- Mono-Thread : 161644 ms
+- Multi-Thread : 105209 ms
 
 Pour améliorer la rapidité de l'algorithme en lui-même il faudrait se pencher sur des algorithmes de tri plus performants ?
+
 Ou passer par les heuristique/métaheuristiques.
+
 Sinon peut-être traiter les cas 91/82/73/64/55 en amont pour limiter la taille de la liste à trier ?
 
 ## Générateur
