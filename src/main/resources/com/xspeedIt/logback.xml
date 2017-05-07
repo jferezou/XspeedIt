@@ -15,7 +15,7 @@
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 	      <!-- rollover daily -->
-	      <fileNamePattern>mylog-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+	      <fileNamePattern>D:\\dev\\logs\\mylog-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
 	       <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
 	       <maxFileSize>100MB</maxFileSize>    
 	       <maxHistory>60</maxHistory>
@@ -36,7 +36,7 @@
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 	      <!-- rollover daily -->
-	      <fileNamePattern>generateur-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+	      <fileNamePattern>D:\\dev\\logs\\generateur-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
 	       <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
 	       <maxFileSize>100MB</maxFileSize>    
 	       <maxHistory>60</maxHistory>
@@ -44,12 +44,12 @@
 	    </rollingPolicy>
   </appender>
 
-  <logger name="com.xspeedIt" level="info" additivity="false">
+  <logger name="com.xspeedit" level="info" additivity="false">
    <appender-ref ref="STDOUT" />
    <appender-ref ref="FILE" />
   </logger>
   
-  <logger name="com.xspeedIt.generateur" level="info" additivity="false">
+  <logger name="com.xspeedit.generateur" level="info" additivity="false">
    <appender-ref ref="GENERATEUR_STDOUT" />
    <appender-ref ref="GENERATEUR" />
   </logger>
