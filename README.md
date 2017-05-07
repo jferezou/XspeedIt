@@ -75,11 +75,14 @@ L'utilisation du parallel (ReaderFileServiceImpl.java, méthode multiThreaded) p
 - Mono-Thread : 161644 ms
 - Multi-Thread : 105209 ms
 
-Pour améliorer la rapidité de l'algorithme en lui-même il faudrait se pencher sur des algorithmes de tri plus performants ?
+Pour améliorer la rapidité de l'algorithme en lui-même il faudrait se pencher sur des algorithmes de tri plus performants.
+- pour palier àa ça, je préclasse mes articles en fonction de leur taille.
 
 Ou passer par les heuristique/métaheuristiques.
 
 Sinon peut-être traiter les cas 91/82/73/64/55 en amont pour limiter la taille de la liste à trier ?
+
+Ou encore pré-trier la liste car quand on créé les articles on connait leur tailles
 
 ## Générateur
 
