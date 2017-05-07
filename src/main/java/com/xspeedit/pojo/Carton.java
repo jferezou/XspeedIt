@@ -12,12 +12,12 @@ public class Carton {
 
 	// liste des articles présents dans ce carton
 	private Collection<Article> articles;
+	
+	private int poidTotalArticle;
 
 	public Carton() {
 		this.articles = new ArrayList<>();
 	}
-	
-	private int poidTotalArticle;
 	
 	public Collection<Article> getArticles() {
 		return articles;

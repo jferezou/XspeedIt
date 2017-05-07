@@ -4,6 +4,7 @@ package com.xspeedit.service;
  * @author jferezou
  *
  */
+@FunctionalInterface
 public interface FillService {
 
 	/**

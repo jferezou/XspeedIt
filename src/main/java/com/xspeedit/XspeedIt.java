@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.xspeedit.exception.TailleArticleException;
+import com.xspeedit.exception.FichierException;
 import com.xspeedit.service.ReaderFileService;
 import com.xspeedit.service.impl.ReaderFileServiceImpl;
 
@@ -38,7 +38,7 @@ public class XspeedIt {
 			ReaderFileService reader = context.getBean(ReaderFileServiceImpl.class);
 			reader.readAndLaunch();
 		}
-		catch(TailleArticleException | TikaException | IOException e) {
+		catch(FichierException | TikaException | IOException e) {
 			LOGGER.error("Erreur lors du traitement : ", e);
 		}
 		Instant end = Instant.now();

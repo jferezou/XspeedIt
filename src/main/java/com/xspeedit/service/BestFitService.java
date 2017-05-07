@@ -10,6 +10,7 @@ import com.xspeedit.pojo.Carton;
  * @author jferezou
  *
  */
+@FunctionalInterface
 public interface BestFitService {
 	/**
 	 * Implementation de l'algorithme du best-fit qui choisi de remplir le carton qui sera la mieux rempli avec ces articles

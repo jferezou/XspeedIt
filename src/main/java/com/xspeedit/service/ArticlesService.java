@@ -9,6 +9,7 @@ import com.xspeedit.pojo.Article;
  * @author jferezou
  *
  */
+@FunctionalInterface
 public interface ArticlesService {
 	/**
 	 * A partir d'une liste de char, on construit notre liste d'articles avec leur taille

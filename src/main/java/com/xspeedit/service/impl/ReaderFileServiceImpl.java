@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xspeedit.exception.TailleArticleException;
+import com.xspeedit.exception.FichierException;
 import com.xspeedit.service.FillService;
 import com.xspeedit.service.ReaderFileService;
 
@@ -50,17 +50,17 @@ public class ReaderFileServiceImpl implements ReaderFileService {
 	 * Méthode lancant la lecture du fichier, l'optimisation et l'écriture des résultats
 	 */
 	@Override
-	public void readAndLaunch() throws TailleArticleException, TikaException, IOException {
+	public void readAndLaunch() throws FichierException, TikaException, IOException {
 		LOGGER.info("Début du traitement");
 		// Vérifie que le fichier existe
 		File file = new File(this.filePath);
 		String fileName = file.getName();
 		if (!file.exists()) {
-			throw new TailleArticleException("Ce fichier n'existe pas : " + this.filePath);
+			throw new FichierException("Ce fichier n'existe pas : " + this.filePath);
 		}
 		// Vérifie que ce n'est pas un répertoire
 		else if (file.isDirectory()) {
-			throw new TailleArticleException("C'est un répertoire : " + this.filePath);
+			throw new FichierException("C'est un répertoire : " + this.filePath);
 		}
 		// verifie que ce soit bien un txt
 		else {
@@ -68,7 +68,7 @@ public class ReaderFileServiceImpl implements ReaderFileService {
 			InputStream bufferedInputstream = new BufferedInputStream(stream);
 			MediaType fileInfo = this.getFileInfo(fileName, bufferedInputstream);
 			if (!MediaType.TEXT_PLAIN.equals(fileInfo.getBaseType())) {
-				throw new TailleArticleException("Le fichier doit être au format " + MediaType.TEXT_PLAIN + " : " + this.filePath);
+				throw new FichierException("Le fichier doit être au format " + MediaType.TEXT_PLAIN + " : " + this.filePath);
 			}
 			// si c'est ok on continue
 			else {

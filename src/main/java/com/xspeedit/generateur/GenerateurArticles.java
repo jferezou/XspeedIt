@@ -14,6 +14,10 @@ public class GenerateurArticles {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GenerateurArticles.class);
 	
+	private GenerateurArticles() {
+		
+	}
+	
 	// classe servant à générer des jeux de données
 	public static void main(String[] args) {
 		final int maxArticles = 50000;
@@ -38,7 +42,6 @@ public class GenerateurArticles {
 	
 	private static int generateRandowValue(final int low, final int high) {
 		Random r = new Random();
-		int result = r.nextInt(high-low) + low;
-		return result;
+		return r.nextInt(high-low) + low;
 	}
 }
