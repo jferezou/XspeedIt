@@ -56,7 +56,7 @@ Faire un *mvn clean install*
 
 Lancer le jar, la classe main est com.xspeedit.XspeedIt
 
-*java -cp {emplacementdu jar}/xspeedIt-1.0.0-0-jar-with-dependencies.jar com.xspeedit.XspeedIt*
+*java -cp {emplacementdu jar}/xspeedit-1.0.0-0-jar-with-dependencies.jar com.xspeedit.XspeedIt*
 
 
 ## RAF
