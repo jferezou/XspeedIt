@@ -78,8 +78,12 @@ public class BestFitServiceTest {
 		articles.add(new Article(7));
 		articles.add(new Article(7));
 		articles.add(new Article(3));
+
+		cartons = this.bestFitService.bestFit(articles);
+		assertThat(cartons.size()).isEqualTo(8);
 		
 		// quel que soit l'ordre je veux que ce soit optimisé
+		// pas forcément sa place en TU à cause de l'aléatoire
 		for(int i = 0 ; i< 20 ; i++) {
 			Collections.shuffle(cartons);
 			cartons = this.bestFitService.bestFit(articles);
