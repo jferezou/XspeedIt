@@ -42,21 +42,21 @@ Best-fit :
 2) Parcours les article dans l'ordre et on placel 'article courant dans le carton le plus rempli respectant les contraintes
 
 
-## Construction du projet
+## Construction et utilisation du projet
 
 Récupérer le projet (git clone https://github.com/jferezou/XspeedIt.git) et mettre à jour le fichier config.properties avec :
 - Le fichier à lire
 - Le fichier résultat
 
-Eventuellement ajuster les informations dans le config.properties
+Ajuster les autres informations dans le config.properties si besoin
 
 Mettre à jour le logback.xml si besoin
 
 Faire un *mvn clean install*
 
-Lancer le jar, la classe main est com.xspeedit.XspeedIt
+Lancer le jar, la classe main est com.xspeedit.XspeedIt :
 
-*java -cp {emplacementdu jar}/xspeedit-1.0.0-0-jar-with-dependencies.jar com.xspeedit.XspeedIt*
+*java -cp ./target/xspeedit-1.0.0-0-jar-with-dependencies.jar com.xspeedit.XspeedIt*
 
 
 ## RAF
