@@ -89,7 +89,7 @@ Traitement classique (option xspeedIt.algo.optim=false)
 - Mono-Thread (option xspeedIt.parallel=false) : 161644 ms
 - Multi-Thread : 105209 ms
 
-Traitement optimise (option xspeedIt.algo.optim=false)
+Traitement optimise (option xspeedIt.algo.optim=true)
 - Mono-Thread (option xspeedIt.parallel=false) : 2086 ms
 - Multi-Thread : 1368 ms
 
