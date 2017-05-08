@@ -45,7 +45,7 @@ Best-fit :
 ## Construction et utilisation du projet
 
 Récupérer le projet (git clone https://github.com/jferezou/XspeedIt.git) et mettre à jour le fichier src/main/ressources/config.properties avec :
-- Le fichier à lire contenant les articles (jeux de test disponible par défaut dans src/main/ressources/listeArticles.txt
+- Le fichier à lire contenant les articles (jeux de test disponible par défaut dans src/main/ressources/listeArticles.txt)
 - Le fichier ou écrire les résultats
 
 Ajuster les autres informations dans le src/main/ressources/config.properties si besoin
