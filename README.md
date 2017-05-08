@@ -44,13 +44,13 @@ Best-fit :
 
 ## Construction et utilisation du projet
 
-Récupérer le projet (git clone https://github.com/jferezou/XspeedIt.git) et mettre à jour le fichier config.properties avec :
-- Le fichier à lire
-- Le fichier résultat
+Récupérer le projet (git clone https://github.com/jferezou/XspeedIt.git) et mettre à jour le fichier src/main/ressources/config.properties avec :
+- Le fichier à lire contenant les articles (jeux de test disponible par défaut dans src/main/ressources/listeArticles.txt
+- Le fichier ou écrire les résultats
 
-Ajuster les autres informations dans le config.properties si besoin
+Ajuster les autres informations dans le src/main/ressources/config.properties si besoin
 
-Mettre à jour le logback.xml si besoin
+Mettre à jour le src/main/ressources/logback.xml si besoin
 
 Faire un *mvn clean install*
 
@@ -97,7 +97,7 @@ Traitement optimise (option xspeedIt.algo.optim=false)
 Test fait avec 10M d'articles. Xmx à 8G sinon heap space : 1947112 ms soit 32.45 min
 
 
-Les résultats sont identiques sur le jeux de test (en nbre de cartons utilisés) quelle que soit la méthode.
+A première vue les résultats sont bien identiques sur le jeux de test (en nbre de cartons utilisés) quelle que soit la méthode.
 
 
 ## Générateur jeu de test
