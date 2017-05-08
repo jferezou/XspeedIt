@@ -3,6 +3,7 @@ package com.xspeedit.test.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -77,7 +78,12 @@ public class BestFitServiceTest {
 		articles.add(new Article(7));
 		articles.add(new Article(7));
 		articles.add(new Article(3));
-		cartons = this.bestFitService.bestFit(articles);
-		assertThat(cartons.size()).isEqualTo(8);
+		
+		// quel que soit l'ordre je veux que ce soit optimisé
+		for(int i = 0 ; i< 20 ; i++) {
+			Collections.shuffle(cartons);
+			cartons = this.bestFitService.bestFit(articles);
+			assertThat(cartons.size()).isEqualTo(8);
+		}
 	}
 }
