@@ -66,22 +66,39 @@ Lancer le jar, la classe main est com.xspeedit.XspeedIt
 - Heuristique + méta-heuristique
 - Faire un assembly propre + sh de lancement
 - gérer la dernière ligne dans le fichier résultat
+- pousser plus loin les jeux de tests, identifier les cas posant souci et tester l'algo
+- mieux test l'algo optim + TU
 
 ## Performances
 Avec 50000 articles les temps de traitements commencent à être long: autour de 8/10 secondes.
 L'utilisation du parallel (ReaderFileServiceImpl.java, méthode multiThreaded) permet d'accélérer les traitements quand il y a plusieurs lignes.
 
+La partie tri se fait rapidement, c'est la partie parcours et identification de la boite la plus remplie qui semble long
+
+2 pré-traitements ont étés ajoutés :
+- traitement des cas 91/82/73/64/55 en amont pour limiter la taille de la liste à trier
+- plus de tri car lors de la création de la liste des articles, leurs taille est déjà connue, on peut donc déjà les ordonner
+
+
+Etape suivante : heuristique/métaheuristiques ?
+
+Métriques :
+
 50 jeux de données de 50000 éléments
-- Mono-Thread : 161644 ms / 162290 ms
-- Multi-Thread : 105209 ms / 109655 ms
+Traitement classique (option xspeedIt.algo.optim=false)
+- Mono-Thread (option xspeedIt.parallel=false : 161644 ms
+- Multi-Thread : 105209 ms
 
-La partie tri se fait rapidement, c'est la partie parcours et identification del a boite la plus rmplie qui semble long
+Traitement optimise (option xspeedIt.algo.optim=false)
+- Mono-Thread (option xspeedIt.parallel=false : 2086 ms
+- Multi-Thread : 1368 ms
 
-Passer par les heuristique/métaheuristiques ?
 
-Sinon peut-être traiter les cas 91/82/73/64/55 en amont pour limiter la taille de la liste à trier ? impact sur la qualité du tri ?
+Test fait avec 10M d'articles. Xmx à 8G sinon heap space : 1947112 ms : 32.45 min
 
-Ou encore pré-trier la liste car quand on créé les articles on connait leur tailles
+
+Les résultats sont identiques sur le jeux de test (en nbre de cartons utilisés) quelle que soit la méthode
+
 
 ## Générateur
 

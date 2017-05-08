@@ -20,12 +20,12 @@ public class GenerateurArticles {
 	
 	// classe servant à générer des jeux de données
 	public static void main(String[] args) {
-		final int maxArticles = 50000;
-		final int minArticle = 49999;
+		final int maxArticles = 10000000;
+		final int minArticle = maxArticles - 1;
 
 		final int minArticleTaille = 1;
 		final int maxArticleTaille = 10;		
-		final int nbrJeuxDonnees = 50;
+		final int nbrJeuxDonnees = 1;
 		
 		for(int i = 0; i < nbrJeuxDonnees; i++) {
 			int nbArticles = generateRandowValue(minArticle, maxArticles);

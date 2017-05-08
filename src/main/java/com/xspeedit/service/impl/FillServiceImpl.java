@@ -5,10 +5,12 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xspeedit.exception.AlgoException;
@@ -33,6 +35,9 @@ public class FillServiceImpl implements FillService{
 	public ArticlesService articlesService;
 	@Autowired
 	public BestFitService bestFitService;
+	@Value("${xspeedIt.algo.optim}")
+	private boolean useAlgoOptimise;
+
 			
 	private static final String SEPARATEUR = "/";
 	
@@ -51,18 +56,12 @@ public class FillServiceImpl implements FillService{
 			strB.append("Articles :\t\t\t");
 			strB.append(line);
 			
-			// 1 on parse la ligne pour en faire une liste d'articles
-			List<Article> articles = this.articlesService.getArticles(line);
-			LOGGER.info("Traitement de {} articles", articles.size());
-			LOGGER.debug("Liste des articles : {}", articles);
-			
-			// 2 on trie ces articles du plus grand au plus petit
-			Comparator<Article> articleComparator = (Article a1, Article a2) -> Integer.compare(a2.getTaille(), a1.getTaille());
-			articles.sort(articleComparator);
-			LOGGER.debug("Liste des articles triés : {}", articles);
-			
-			// 3 algo du best-fit : on parcourt ces articles un à un et on met l'article dans la boîte la mieux remplie
-			cartons = this.bestFitService.bestFit(articles);			
+			if(this.useAlgoOptimise) {
+				cartons = this.bestFitOptimise(line);
+			}
+			else {
+				cartons = this.bestFitBasique(line);
+			}
 
 			strB.append("\nRobot optimisé :\t");
 			for(Carton carton : cartons) {
@@ -94,10 +93,57 @@ public class FillServiceImpl implements FillService{
 		LOGGER.info("Fin remplissage de cette châine d'article en : {} ms", Duration.between(start, end).toMillis());
 		return lineResult;
 	}
+	
+
+	/**
+	 * Appel au best-fit avec pré-traitement
+	 * @param articles
+	 * @return
+	 * @throws AlgoException
+	 * @throws TailleArticleException 
+	 */
+	private List<Carton> bestFitOptimise(final String line) throws AlgoException, TailleArticleException {
+
+		// 1 on parse la ligne pour en faire une liste d'articles
+		Map<Integer,List<Article>> articles = this.articlesService.getArticlesOptim(line);
+		LOGGER.debug("Liste des articles : {}", articles);
+				
+		// 2 algo du best-fit optimise avec pre-traitement
+		return this.bestFitService.bestFitOptim(articles);
+	}
+	
+	
+	/**
+	 * Appel à l'algo best-fit basique
+	 * @param articles
+	 * @return
+	 * @throws AlgoException
+	 */
+	private List<Carton> bestFitBasique(final String line) throws AlgoException, TailleArticleException {
+
+		// 1 on parse la ligne pour en faire une liste d'articles
+		List<Article> articles = this.articlesService.getArticles(line);
+		LOGGER.info("Traitement de {} articles", articles.size());
+		LOGGER.debug("Liste des articles : {}", articles);
+		
+		// 2 on trie ces articles du plus grand au plus petit
+		Comparator<Article> articleComparator = (Article a1, Article a2) -> Integer.compare(a2.getTaille(), a1.getTaille());
+		articles.sort(articleComparator);
+		LOGGER.debug("Liste des articles triés : {}", articles);
+		
+		// 3 algo du best-fit : on parcourt ces articles un à un et on met l'article dans la boîte la mieux remplie
+		return this.bestFitService.bestFit(articles);
+	}
+
+
 	public void setArticlesService(ArticlesService articlesService) {
 		this.articlesService = articlesService;
 	}
+
+
 	public void setBestFitService(BestFitService bestFitService) {
 		this.bestFitService = bestFitService;
-	}	
+	}
+	
+	
 }

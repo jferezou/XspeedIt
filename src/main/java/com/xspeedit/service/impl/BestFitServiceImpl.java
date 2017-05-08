@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,6 +106,101 @@ public class BestFitServiceImpl implements BestFitService{
 
 		Instant end = Instant.now();
 		LOGGER.info("Fin traitement best-fit en : {} ms", Duration.between(start, end).toMillis());
+		return cartons;
+	}
+
+
+	/**
+	 * Implementation de l'aglo optimisé : pré-traitement de la liste
+	 * @param articles
+	 * @return
+	 * @throws AlgoException
+	 */
+	@Override
+	public List<Carton> bestFitOptim(final Map<Integer, List<Article>> articles) throws AlgoException {
+		List<Carton> cartons = new ArrayList<>();
+		
+		// on rempli les cartons : 91/82/73/64/55
+		cartons.addAll(this.preRemplissage(articles.get(1), articles.get(9)));
+		cartons.addAll(this.preRemplissage(articles.get(2), articles.get(8)));
+		cartons.addAll(this.preRemplissage(articles.get(3), articles.get(7)));
+		cartons.addAll(this.preRemplissage(articles.get(4), articles.get(6)));
+		// le 55 est un cas particulier car on utilise la même liste
+		cartons.addAll(this.preRemplissage(articles.get(5)));
+		
+		List<Article> articlesRestant = new ArrayList<>();
+		for(int index = 9; index > 0 ; index --) {
+			List<Article> articlesList = articles.get(index);
+			if(articlesList != null) {
+				articlesRestant.addAll(articlesList);
+			}
+		}
+		
+		// on appelle l'algo normal
+		cartons.addAll(this.bestFit(articlesRestant));
+		
+		return cartons;
+	}
+	
+	/**
+	 * En fonction de 2 listes complémentaires (ie somme taille = 10), pré-construit des cartons optimisés
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
+	private List<Carton> preRemplissage(final List<Article> l1, final List<Article> l2) {
+		List<Carton> cartons = new ArrayList<>();
+
+		LOGGER.debug("Liste 1 en entrée : {}", l1);
+		LOGGER.debug("Liste 2 en entrée : {}", l2);
+		if(l1 != null && l2 != null) {
+			int index = 0;
+			while(index < l1.size() && index < l2.size()) {
+				Carton carton = new Carton();
+				carton.addArticle(l1.get(index));
+				carton.addArticle(l2.get(index));
+				cartons.add(carton);
+				index++;
+			}
+			
+			// on supprime les articles remplis
+			for(int i = 0; i < index ; i++) {
+				l1.remove(0);
+				l2.remove(0);
+			}
+		}
+		LOGGER.debug("Liste 1 restante : {}", l1);
+		LOGGER.debug("Liste 2 restante : {}", l2);
+		return cartons;
+	}
+
+
+	/**
+	 * En fonction d'une liste complémentaire (ie somme taille = 10), pré-construit des cartons optimisés
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
+	private List<Carton> preRemplissage(final List<Article> l1) {
+		List<Carton> cartons = new ArrayList<>();
+
+		LOGGER.debug("Liste 1 en entrée : {}", l1);
+		if(l1 != null && l1.size() > 1) {
+			int index = 0;
+			while(index + 1 < l1.size()) {
+				Carton carton = new Carton();
+				carton.addArticle(l1.get(index));
+				carton.addArticle(l1.get(index + 1));
+				cartons.add(carton);
+				index = index + 2;
+			}
+			
+			// on supprime les articles remplis
+			for(int i = 0; i < index ; i++) {
+				l1.remove(0);
+			}
+		}
+		LOGGER.debug("Liste 1 restante : {}", l1);
 		return cartons;
 	}
 	
