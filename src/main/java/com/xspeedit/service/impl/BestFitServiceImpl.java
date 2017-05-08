@@ -1,5 +1,7 @@
 package com.xspeedit.service.impl;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class BestFitServiceImpl implements BestFitService{
 	 */
 	@Override
 	public List<Carton> bestFit(final List<Article> articles) throws AlgoException{
+		Instant start = Instant.now();
 		List<Carton> cartons = new ArrayList<>();
 		
 		for(Article article : articles) {
@@ -99,6 +102,9 @@ public class BestFitServiceImpl implements BestFitService{
 			
 		}
 		this.verification(articles, cartons);
+
+		Instant end = Instant.now();
+		LOGGER.info("Fin traitement best-fit en : {} ms", Duration.between(start, end).toMillis());
 		return cartons;
 	}
 	

@@ -1,5 +1,7 @@
 package com.xspeedit.service.impl;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,8 @@ public class ArticlesServiceImpl implements ArticlesService{
 	 */
 	@Override
 	public List<Article> getArticles(final String line) throws TailleArticleException{
+
+		Instant start = Instant.now();
 		List<Article> articles = new ArrayList<>();
 		LOGGER.debug("Parse la line {} pour en extraire les articles", line);
 		for (int i = 0 ; i < line.length() ; i++){
@@ -56,7 +60,10 @@ public class ArticlesServiceImpl implements ArticlesService{
 				throw new TailleArticleException("La taille de l'article doit être un entier, taille de cet article : " + tailleChar);
 			}
 		}
-		
+
+		Instant end = Instant.now();
+
+		LOGGER.info("Fin traitement génération des articles en : {} ms", Duration.between(start, end).toMillis());
 		return articles;		
 	}
 

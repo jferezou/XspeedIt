@@ -87,7 +87,7 @@ public class ReaderFileServiceImpl implements ReaderFileService {
 	 */
 	private void multiThreaded(File file) throws IOException {
 		List<String> list = Files.readAllLines(Paths.get(file.getPath()));
-		List<String> lineResult = IntStream.range(0, list.size()).parallel().mapToObj(i -> this.fillService.fill(list.get(i))).collect(Collectors.toList());
+		List<String> lineResult = IntStream.range(0, list.size()).mapToObj(i -> this.fillService.fill(list.get(i))).collect(Collectors.toList());
 
 		try (final FileWriter fw = new FileWriter(this.fichierResultat); final BufferedWriter bw = new BufferedWriter(fw);) {
 			// on écrit les résultats dans le fichier
