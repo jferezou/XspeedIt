@@ -52,7 +52,7 @@ Eventuellement ajuster les informations dans le config.properties
 
 Mettre à jour le logback.xml si besoin
 
-Faire un *mvn install*
+Faire un *mvn clean install*
 
 Lancer le jar, la classe main est com.xspeedit.XspeedIt
 

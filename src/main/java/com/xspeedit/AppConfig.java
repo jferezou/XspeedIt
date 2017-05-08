@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @ComponentScan(basePackages = { "com.xspeedit.*" })
-@PropertySource("classpath:com/xspeedIt/config.properties")
+@PropertySource("classpath:com/xspeedit/config.properties")
 public class AppConfig {
 
 }
