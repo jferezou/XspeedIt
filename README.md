@@ -24,7 +24,7 @@ Ci :
 Min( Somme (j= 1 .. n) {Ci})
 
 
-*SC : *
+*SC :*
 
 Somme(i=1..n) {Ai Xij} <= 10; j=1..n (ie : on ne dépase pas la tailel de 10 d'un carton)
 
@@ -41,7 +41,6 @@ Best-fit :
 1) Tri de tous les articles par ordre décroissant de taille
 2) Parcours les article dans l'ordre et on placel 'article courant dans le carton le plus rempli respectant les contraintes
 
-Pour faire (très) simple il fait des cartons de 91, puis 82, puis 73, puis 64, puis 55 et optimise le reste !
 
 ## Construction du projet
 
@@ -53,7 +52,7 @@ Eventuellement ajuster les informations dans le config.properties
 
 Mettre à jour le logback.xml si besoin
 
-Faire un *mvn clean install*
+Faire un *mvn install*
 
 Lancer le jar, la classe main est com.xspeedit.XspeedIt
 
@@ -71,9 +70,10 @@ Lancer le jar, la classe main est com.xspeedit.XspeedIt
 
 ## Performances
 Avec 50000 articles les temps de traitements commencent à être long: autour de 8/10 secondes.
+
 L'utilisation du parallel (ReaderFileServiceImpl.java, méthode multiThreaded) permet d'accélérer les traitements quand il y a plusieurs lignes.
 
-La partie tri se fait rapidement, c'est la partie parcours et identification de la boite la plus remplie qui semble long
+La partie tri se fait plutôt rapidement, c'est la partie parcours et identification de la boite la plus remplie qui semble long
 
 2 pré-traitements ont étés ajoutés :
 - traitement des cas 91/82/73/64/55 en amont pour limiter la taille de la liste à trier
@@ -86,21 +86,22 @@ Métriques :
 
 50 jeux de données de 50000 éléments
 Traitement classique (option xspeedIt.algo.optim=false)
-- Mono-Thread (option xspeedIt.parallel=false : 161644 ms
+- Mono-Thread (option xspeedIt.parallel=false) : 161644 ms
 - Multi-Thread : 105209 ms
 
 Traitement optimise (option xspeedIt.algo.optim=false)
-- Mono-Thread (option xspeedIt.parallel=false : 2086 ms
+- Mono-Thread (option xspeedIt.parallel=false) : 2086 ms
 - Multi-Thread : 1368 ms
 
 
-Test fait avec 10M d'articles. Xmx à 8G sinon heap space : 1947112 ms : 32.45 min
+Test fait avec 10M d'articles. Xmx à 8G sinon heap space : 1947112 ms soit 32.45 min
 
 
-Les résultats sont identiques sur le jeux de test (en nbre de cartons utilisés) quelle que soit la méthode
+Les résultats sont identiques sur le jeux de test (en nbre de cartons utilisés) quelle que soit la méthode.
 
 
-## Générateur
+## Générateur jeu de test
 
 La classe com.xspeedit.generateur.GenerateurArticles permet de générer des lignes aléatoires d'articles de taille différente.
+
 Il suffit de copier/coller les valeurs générées depuis le fichier de log vers le fichier qui sera lu par le programme (propriété xspeedIt.fichier)
