@@ -44,7 +44,7 @@ Best-fit :
 
 ## Construction du projet
 
-Récupérer le projet et mettre à jour le fichier config.properties avec :
+Récupérer le projet (git clone https://github.com/jferezou/XspeedIt.git) et mettre à jour le fichier config.properties avec :
 - Le fichier à lire
 - Le fichier résultat
 
